@@ -1,0 +1,98 @@
+body{
+  // background: #3e474c;
+  // color: #fff;
+}
+
+header{
+  .logo{
+    min-width: 150px;
+  }
+  .logo-link.active{
+    background: none !important;
+  }
+  .ui.inverted.menu{
+    border-radius: 0;
+    .item{
+      font-weight: bold !important;
+      font-size: 20px;
+      &.active,
+      &:hover{
+        color: #ffc500 !important;
+        background: none !important;
+      }
+    }
+  }
+}
+
+.people-list{
+  padding: 70px 0;
+} 
+
+.pagination{
+    width: 100%;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    li{
+      list-style: none;
+      cursor: pointer;
+      margin: 5px;
+      width: 25px;
+      height: 25px;
+      background-color: #e9e9ec;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-size: 13px;
+      &.disabled{
+        cursor: initial;
+        a{
+           color: #ccc;
+        }
+      }
+      &.active{
+        background-color: #7b7b88;
+        a{
+          color: #fff;
+        }
+        
+      }
+      a{
+        display: block;
+        color: #262626;
+        line-height: 25px;
+        width: 100%;
+        height: 100%;
+        &:focus{
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
+.hero-details{
+  padding: 100px 0;
+  .list{
+    .item{
+      margin-bottom: 10px;
+      p{
+        font-size: 18px;
+      }
+       i{
+        width: 50px;
+      }
+    }
+  }
+  .tabular.menu{
+    button{
+      &:focus{
+        outline: none;
+        
+      }
+    }
+  }
+  
+}
