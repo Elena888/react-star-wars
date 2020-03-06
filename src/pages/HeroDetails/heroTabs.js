@@ -47,7 +47,7 @@ const HeroTabs = ({films, homeWorld}) => {
               filmsData && filmsData.length > 0 && filmsData.map(item => {
                 return (
                   <div key={item.title}>
-                    {item.title}
+                    {item.title}: {item.release_date}
                     </div>
                 )
               })

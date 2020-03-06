@@ -83,14 +83,20 @@ class HeroDetails extends React.Component {
              <Loading loading={loading} />
              :
              <div className="ui grid">
-              <div className="sixteen wide column">
+              <div className="six wide column">
                 <div className="ui middle aligned selection list">
                   <HeroData heroData={heroData} />
                 </div>
+                <button className="ui basic button">
+                  <i className="icon heart"></i>
+                  Add to favorites
+                </button>
+              </div>
+              <div className="ten wide column">
                 <HeroTabs
-                  films={this.props.films}
-                  homeWorld={this.props.homeWorld}
-                />
+                    films={this.props.films}
+                    homeWorld={this.props.homeWorld}
+                  />
               </div>
             </div>
           }

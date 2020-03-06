@@ -1,25 +1,21 @@
+import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from "../actions/types";
+
+//import {FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE} from "../actions/types";
+
 const initialState = {
-    loading: false,
     data: [],
-    error: null,
 };
 
 export default function data(params = '') {
     return (state = initialState, action) => {
         switch (action.type){
-            case `data/${params}/REQUEST`:
+            case ADD_TO_FAVORITES:
                 return { 
                     ...state,
-                    loading: true,
-                    error: null, 
+                    data: action.payload
                 };
-            case `data/${params}/SUCCESS`:
-                return { 
-                    ...state, 
-                    loading: false, 
-                    error: null, 
-                    data: action.payload, 
-                };
+            case REMOVE_FROM_FAVORITES:
+                return state.filter((item)=>item.url !== action.itemUrl)
             case `data/${params}/FAILURE`:
                 return { 
                     ...state, 
