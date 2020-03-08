@@ -30,9 +30,9 @@ const HeroTabs = ({films, homeWorld}) => {
             <Loading loading={loadingHomeWorld} />
           :                    
             <div>
-              Planet: {homeWorldData.name}
-              Population: {homeWorldData.population}
-              Climate: {homeWorldData.climate}
+                <h3>Planet: {homeWorldData.name}</h3>
+                <h4>Population: {homeWorldData.population}</h4>
+                <h4>Climate: {homeWorldData.climate}</h4>
             </div>
         }
       </div>
@@ -47,8 +47,8 @@ const HeroTabs = ({films, homeWorld}) => {
               filmsData && filmsData.length > 0 && filmsData.map(item => {
                 return (
                   <div key={item.title}>
-                    {item.title}: {item.release_date}
-                    </div>
+                      <h4>{item.title} ({item.release_date})</h4>
+                </div>
                 )
               })
         }

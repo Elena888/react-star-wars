@@ -1,30 +1,24 @@
-import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from "../actions/types";
 
-//import {FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE} from "../actions/types";
+import {
+    ADD_TO_FAVORITES,
+    ADD_TO_FAVORITES_ERROR,
+    REMOVE_FROM_FAVORITES,
+} from '../actions/types'
 
-const initialState = {
-    data: [],
+const initState = {}
+
+const favoritesReducer = (state = initState, action) => {
+    switch (action.type) {
+        case ADD_TO_FAVORITES:
+            console.log('ADD_TO_FAVORITES success');
+            return state;
+        case ADD_TO_FAVORITES_ERROR:
+            console.log('ADD_TO_FAVORITES error');
+            return state;
+        default:
+            return state;
+    }
 };
 
-export default function data(params = '') {
-    return (state = initialState, action) => {
-        switch (action.type){
-            case ADD_TO_FAVORITES:
-                return { 
-                    ...state,
-                    data: action.payload
-                };
-            case REMOVE_FROM_FAVORITES:
-                return state.filter((item)=>item.url !== action.itemUrl)
-            case `data/${params}/FAILURE`:
-                return { 
-                    ...state, 
-                    loading: false, 
-                    error: action.error, 
-                };
-            default:
-                return state
-        }
-    };
-}
+export default favoritesReducer;
 

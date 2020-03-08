@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import { signOut } from '../actions'
 import logo from '../images/Star_Wars_logo.svg'
 
-const Header = (props) => {
-    const { firebase } = props;
-    console.log('firebase', firebase)
+const Header = ({auth, signOut}) => {
     
     return(
         <header>
@@ -17,15 +15,24 @@ const Header = (props) => {
                     </NavLink>
 
                     <div className="right menu">
-                        <NavLink exact to="/" className="item">Favorite List</NavLink>
-                        <NavLink exact to="/people-list" className="item">People List</NavLink>
+
+                        <NavLink exact to="/" className="item">People List</NavLink>
                         {
-                            firebase.auth.uid ? 
-                            <button onClick={props.signOut}>Log Out</button>
+                            auth.uid ?
+                            <>
+                                <NavLink exact to="/favorites-list" className="item">Favorite List</NavLink>
+                                <div className="item">
+                                    <button className="ui inverted button" onClick={signOut}>Log Out</button>
+                                </div>
+                            </>
                             :
                             <>
-                                <NavLink exact to="/sign-up" className="ui primary button">Sign Up</NavLink>
-                                <NavLink exact to="/sign-in" className="ui button">Sign In</NavLink>
+                                <div className="item">
+                                    <NavLink exact to="/sign-up" className="ui inverted yellow button">Sign Up</NavLink>
+                                </div>
+                                <div className="item">
+                                    <NavLink exact to="/sign-in" className="ui inverted button">Sign In</NavLink>
+                                </div>
                             </>
                         }
                     </div>
@@ -38,9 +45,9 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
     return{
-      firebase: state.firebase
+      auth: state.firebase.auth
     }
-  }
+  };
   
 
 export default connect(mapStateToProps, {signOut})(Header);

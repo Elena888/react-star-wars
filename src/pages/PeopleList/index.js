@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
 
 import { fetchData } from "../../actions";
 
-import Loading from '../../components/Loading'
+
 import Search from '../../components/Search'
+import CardsHero from '../../components/CardsHero'
 
 class PeopleList extends React.Component{
     constructor(props) {
@@ -43,18 +43,17 @@ class PeopleList extends React.Component{
         .catch(error => {
             this.setState({error})
         })
-    }
+    };
+
     loadData = page => {
-        const url = `https://swapi.co/api/people/?page=${page.selected + 1}`
+        const url = `https://swapi.co/api/people/?page=${page.selected + 1}`;
         this.fetchData(url)
      };
 
     searchData = data => {
-        
-        const url = `https://swapi.co/api/people/?search=${data}`
-        console.log(url)
+        const url = `https://swapi.co/api/people/?search=${data}`;
         this.fetchData(url)
-     }
+    };
     
     render(){
         const {people, error} = this.state;
@@ -67,51 +66,26 @@ class PeopleList extends React.Component{
         return(
             <section className="people-list">
                 <div className="ui container">
-                    <h1>People List</h1>
                     <div className="ui grid">
-                        <div className="ten wide column">
-                            {
-                                loading ?
-                                <Loading loading={loading} />
-                                :
-                                <div className="ui cards people">
-                                    {
-                                        people.length > 0 && people.map(item => {
-                                            
-                                            const icon = item.gender === 'female' ? 'female' : item.gender === 'male' ? 'male' : 'user secret'
-                                            return (
-                                                <div className="card" key={item.name}>
-                                                    <div className="content">
-                                                        <div className="header">
-                                                            <Link to={`people-list/${item.id}`}>
-                                                                <i className={`${icon} icon `}/> {item.name}
-                                                            </Link>
-                                                            
-                                                        </div>
-                                                        <div className="meta">{item.gender}</div>
-                                                    </div>
-                                                    <div className="extra content">
-                                                        Add to Favorites 
-                                                    </div>
-                                                    <div className="ui heart rating" data-rating="1" data-max-rating="3"/>
-                                                </div>
-                                            )
-                                        })   
-                                    }
-                                </div>
-                            }
+                        <div className="sixteen wide column">
+                            <h1>People List</h1>
+                        </div>
+                        <div className="twelve wide column">
+                            <div className="cards-people">
+                                <CardsHero data={people} loading={loading} />
+                            </div>
                             <ReactPaginate
-                                previousLabel={<i className='chevron left icon'></i>}
-                                nextLabel={<i className='chevron right icon'></i>}
+                                previousLabel={<i className='chevron left icon'/>}
+                                nextLabel={<i className='chevron right icon'/>}
                                 breakLabel={'...'}
                                 breakClassName={'break-me'}
                                 pageCount={this.state.pageCount}
                                 onPageChange={this.loadData}
                                 containerClassName={'pagination'}
                                 activeClassName={'active'}
-                            /> 
+                            />
                         </div>
-                        <div className="six wide column">
+                        <div className="four wide column">
                             <Search searchData={this.searchData} />
                         </div>
                     </div>

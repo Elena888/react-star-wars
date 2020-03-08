@@ -2,6 +2,8 @@ import {
     SIGN_IN_SUCCESS,
     SIGN_IN_FAILURE,
     SIGNOUT_SUCCESS,
+    SIGNUP_FAILURE,
+    SIGNUP_SUCCESS
 } from '../actions/types'
 
 const initState = {
@@ -27,6 +29,19 @@ const initState = {
         return {
             ...state,
           }
+        case SIGNUP_SUCCESS:
+            console.log('signup success')
+            return {
+                ...state,
+                authError: null
+            }
+
+        case SIGNUP_FAILURE:
+            console.log('signup error')
+            return {
+                ...state,
+                authError: action.err.message
+            }
       default:
         return state
     }
