@@ -1,8 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../actions'
 import logo from '../images/Star_Wars_logo.svg'
+
+import '../styles/components/Header.scss'
 
 const Header = ({auth, signOut}) => {
     
@@ -43,11 +46,17 @@ const Header = ({auth, signOut}) => {
     )
 };
 
+Header.propTypes = {
+    auth: PropTypes.object,
+    signOut: PropTypes.func
+};
+
 const mapStateToProps = (state) => {
     return{
       auth: state.firebase.auth
     }
   };
   
+
 
 export default connect(mapStateToProps, {signOut})(Header);

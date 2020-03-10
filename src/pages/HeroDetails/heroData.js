@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Loading from '../../components/Loading'
 
 const HeroData = ({heroData, renderButton, loading}) => {
@@ -33,5 +34,11 @@ const HeroData = ({heroData, renderButton, loading}) => {
         )
 
 };
+HeroData.propTypes = {
+    heroData: PropTypes.array,
+    loading: PropTypes.bool,
+    renderButton: PropTypes.func,
+  };
+
 
 export default HeroData;

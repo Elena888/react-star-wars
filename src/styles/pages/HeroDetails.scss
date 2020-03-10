@@ -1,0 +1,40 @@
+.hero-details{
+  padding: 100px 0;
+  .ui.grid{
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .list{
+    .item{
+      margin-bottom: 10px;
+      p{
+        font-size: 18px;
+      }
+       i{
+        width: 50px;
+      }
+    }
+  }
+  .tabular.menu{
+    .active.item{
+      background: #f5f6f7;
+      color: #707ab7;
+    }
+
+    button{
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .attached.segment{
+    &.active{
+      background: #f5f6f7;
+    }
+    h4{
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux'
 import reduxThunk from 'redux-thunk'
 import { getFirebase,ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { createFirestoreInstance, firestoreReducer  } from 'redux-firestore';
+import { createFirestoreInstance } from 'redux-firestore';
 import App from './App'
 import reducers from './reducers'
 import firebase from './config/fbConfig'

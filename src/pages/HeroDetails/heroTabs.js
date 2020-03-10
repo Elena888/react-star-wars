@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 import Loading from '../../components/Loading'
 
 const HeroTabs = ({films, homeWorld}) => {
@@ -56,5 +57,11 @@ const HeroTabs = ({films, homeWorld}) => {
   </>
   )
 }
+
+HeroTabs.propTypes = {
+  homeWorld: PropTypes.object,
+  films: PropTypes.object,
+};
+
 
 export default HeroTabs;

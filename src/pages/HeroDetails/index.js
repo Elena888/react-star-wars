@@ -1,12 +1,11 @@
 import React from 'react'
-import { compose } from 'redux'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-
 import { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites } from "../../actions";
 
 import HeroData from './heroData';
 import HeroTabs from './heroTabs';
+import '../../styles/pages/HeroDetails.scss'
 
 class HeroDetails extends React.Component {
 
@@ -83,7 +82,6 @@ class HeroDetails extends React.Component {
     removeFavorites = () => {
         const {removeFavorites} = this.props;
         const id = this.props.match.params.id;
-
         removeFavorites(id)
     };
 
@@ -92,7 +90,7 @@ class HeroDetails extends React.Component {
         const idHero = this.props.match.params.id;
 
         if(auth.uid) {
-            const favoriteFind = favorites && favorites.find(item => item.id === idHero);
+            const favoriteFind = favorites && favorites.data.find(item => item.id === idHero);
 
             if(favoriteFind){
                 return(
@@ -123,20 +121,22 @@ class HeroDetails extends React.Component {
     render(){
         const {films, homeWorld} = this.props;
         const {loading, error, heroData} = this.renderData()
-
-        if (error) {
-            return <p>Sorry! There was an error loading hero details</p>;
-        }
         return (
             <section className="hero-details">
                 <div className="ui container">
+                    
                     <div className="ui grid">
                         <div className="six wide column">
-                            <HeroData
-                                heroData={heroData}
-                                renderButton={this.renderButton}
-                                loading={loading}
-                            />
+                            {
+                                error ?
+                                    <p>Sorry! There was an error loading hero details</p>
+                                :
+                                    <HeroData
+                                        heroData={heroData}
+                                        renderButton={this.renderButton}
+                                        loading={loading}
+                                    />
+                            }
                         </div>
                         <div className="ten wide column">
                             <HeroTabs
@@ -151,33 +151,25 @@ class HeroDetails extends React.Component {
     }
 }
 
+HeroDetails.propTypes = {
+    hero: PropTypes.object,
+    homeWorld: PropTypes.object,
+    films: PropTypes.object,
+    favorites: PropTypes.object,
+    auth: PropTypes.object,
+  };
+
 const mapStateToProps = (state) => {
     return {
         hero: state.data,
         homeWorld: state.homeWorld,
         films: state.films,
+        favorites: state.favorites,
         auth: state.firebase.auth,
-        favorites: state.firestore.ordered.favorites,
     }
 };
-export default compose(
-    connect(mapStateToProps, { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites }),
-    firestoreConnect(props => {
-            if (!props.auth.uid) return []
-
-            return(
-                [
-                    {
-                        collection: 'favorites',
-                        where: [
-                            ['userId', '==', props.auth.uid]
-                        ],
-
-                    }
-                ]
-            )
-        }
-    ),
-
+export default connect(
+    mapStateToProps, 
+    { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites }
 )(HeroDetails)
 

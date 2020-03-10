@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 
 const Search = ({searchData}) => {
   const [data, setData] = useState('')
@@ -6,6 +7,7 @@ const Search = ({searchData}) => {
   const handleSubmit = e => {
     e.preventDefault()
     searchData(data)
+    setData('')
   }
 
   return (
@@ -23,5 +25,9 @@ const Search = ({searchData}) => {
     </form>
   )
 }
+
+Search.propTypes = {
+  searchData: PropTypes.func
+};
 
 export default Search

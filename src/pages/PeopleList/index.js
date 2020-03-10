@@ -1,19 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux'
 
 import { fetchData } from "../../actions";
 
-
 import Search from '../../components/Search'
 import CardsHero from '../../components/CardsHero'
+import '../../styles/pages/listData.scss'
 
 class PeopleList extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
             error: false,
-            loading: false,
             people: [],
             pageCount: 1
         } 
@@ -58,11 +58,7 @@ class PeopleList extends React.Component{
     render(){
         const {people, error} = this.state;
         const {loading} = this.props;
-      
-        console.log('people', people);
-        if (error) {
-            return <p>Sorry! There was an error loading people</p>;
-        }
+
         return(
             <section className="people-list">
                 <div className="ui container">
@@ -70,30 +66,44 @@ class PeopleList extends React.Component{
                         <div className="sixteen wide column">
                             <h1>People List</h1>
                         </div>
-                        <div className="twelve wide column">
-                            <div className="cards-people">
-                                <CardsHero data={people} loading={loading} />
-                            </div>
-                            <ReactPaginate
-                                previousLabel={<i className='chevron left icon'/>}
-                                nextLabel={<i className='chevron right icon'/>}
-                                breakLabel={'...'}
-                                breakClassName={'break-me'}
-                                pageCount={this.state.pageCount}
-                                onPageChange={this.loadData}
-                                containerClassName={'pagination'}
-                                activeClassName={'active'}
-                            />
-                        </div>
-                        <div className="four wide column">
-                            <Search searchData={this.searchData} />
-                        </div>
+                        {
+                            error ?
+                                <p>Sorry! There was an error loading people</p>
+                            :
+                            <>
+                                <div className="twelve wide column">
+                                    <div className="cards-people">
+                                        <CardsHero data={people} loading={loading} />
+                                        <ReactPaginate
+                                            previousLabel={<i className='chevron left icon'/>}
+                                            nextLabel={<i className='chevron right icon'/>}
+                                            breakLabel={'...'}
+                                            breakClassName={'break-me'}
+                                            pageCount={this.state.pageCount}
+                                            onPageChange={this.loadData}
+                                            containerClassName={'pagination'}
+                                            activeClassName={'active'}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="four wide column">
+                                    <Search searchData={this.searchData} />
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             </section>
         )
     }
 }
+
+PeopleList.propTypes = {
+    people: PropTypes.object,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+  };
+
 
 const mapStateToProps = (state) => {
     return {

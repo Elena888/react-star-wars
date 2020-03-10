@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signUp } from '../../actions'
+import '../../styles/pages/Auth.scss'
 
 class SignUp extends Component {
     state = {
@@ -54,6 +56,11 @@ class SignUp extends Component {
         )
     }
 }
+
+SignUp.propTypes = {
+    auth: PropTypes.object,
+    authError: PropTypes.string
+  };
 
 const mapStateToProps = (state) => {
     return {
