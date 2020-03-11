@@ -4,22 +4,30 @@
     background: #fff;
     border-radius: 8px;
     padding: 20px;
+    @media screen and (max-width: 770px) {
+      border-radius: 0;
+      padding: 0;
+    }
   }
   .cards-people{
     min-height: 660px;
+    padding-bottom: 70px;
     position: relative;
   }
   .cards{
     .card{
       margin: 20px;
-      width: 45%;
+      width: calc(50% - 40px);
+      max-width: 350px;
+      @media screen and (max-width: 500px) {
+        width: calc(100% - 40px);
+      }
 
       a{
         width: 100%;
         height: 100%;
         padding: 20px;
         display: flex;
-        flex-wrap: wrap;
         justify-content: left;
         align-items: center;
         background: #f9f9f9;
@@ -28,6 +36,10 @@
         font-size: 36px;
         margin-right: 15px;
         line-height: 1;
+        @media screen and (max-width: 990px) {
+          font-size: 20px;
+          margin-right: 10px;
+        }
       }
       .header{
         font-size: 18px;

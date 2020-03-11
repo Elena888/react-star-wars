@@ -6,23 +6,52 @@ header{
   }
   .logo{
     min-width: 150px;
+    @media screen and (max-width: 700px) {
+      border-radius: 0;
+    }
   }
   .logo-link.active{
     background: none !important;
   }
   .ui.inverted.menu{
     border-radius: 0;
-
+    align-items: center;
     .item{
       padding: 0;
       margin: 0 10px;
       font-weight: bold !important;
       font-size: 18px;
+      @media screen and (max-width: 700px) {
+        font-size: 16px;
+      }
       &.active,
       &:hover{
         color: #ffc500 !important;
         background: none !important;
       }
     }
+    button{
+      margin: 0 10px;
+    }
   }
+  @media screen and (max-width: 550px) {
+    .header-menu{
+      display: block !important;
+      .logo-link{
+        width: 100%;
+        text-align: center;
+        display: block !important;
+        margin: 0  0 20px 0!important;
+        img{
+          max-width: 100px;
+          min-width: 100px;
+          margin: 0;
+        }
+      }
+      .right.menu{
+        justify-content: center !important;
+      }
+    }
+  }
+  
 }

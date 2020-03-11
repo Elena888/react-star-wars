@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites } from "../../actions";
+import { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites, fetchFavorites } from "../../actions";
 
 import HeroData from './heroData';
 import HeroTabs from './heroTabs';
@@ -18,6 +18,9 @@ class HeroDetails extends React.Component {
                 this.props.fetchDataFilms(res.films)
                 return res
             })
+            if(this.props.auth.uid) {
+                this.props.fetchFavorites();
+            }
     }
 
     renderData = () => {
@@ -85,17 +88,16 @@ class HeroDetails extends React.Component {
         removeFavorites(id)
     };
 
-    renderButton = () => {
+    renderFavoritesButton = () => {
         const {auth, favorites} = this.props;
         const idHero = this.props.match.params.id;
 
         if(auth.uid) {
             const favoriteFind = favorites && favorites.data.find(item => item.id === idHero);
-
             if(favoriteFind){
                 return(
                     <button
-                        className="ui black large button"
+                        className="ui button violet basic"
                         onClick={this.removeFavorites}
                     >
                         <i className="icon heart"/>
@@ -105,10 +107,10 @@ class HeroDetails extends React.Component {
             }else{
                 return(
                     <button
-                        className="ui red large button"
+                        className="ui button violet basic"
                         onClick={this.addToFavorites}
                     >
-                        <i className="icon heart"/>
+                        <i className="heart icon outline"/>
                         Like
                     </button>
 
@@ -117,15 +119,14 @@ class HeroDetails extends React.Component {
         }
     };
 
-
     render(){
         const {films, homeWorld} = this.props;
-        const {loading, error, heroData} = this.renderData()
+        const {loading, error, heroData} = this.renderData();
+        
         return (
             <section className="hero-details">
-                <div className="ui container">
-                    
-                    <div className="ui grid">
+                <div className="ui aligned stackable grid container">
+                    <div className="row">
                         <div className="six wide column">
                             {
                                 error ?
@@ -133,7 +134,7 @@ class HeroDetails extends React.Component {
                                 :
                                     <HeroData
                                         heroData={heroData}
-                                        renderButton={this.renderButton}
+                                        renderButton={this.renderFavoritesButton}
                                         loading={loading}
                                     />
                             }
@@ -170,6 +171,6 @@ const mapStateToProps = (state) => {
 };
 export default connect(
     mapStateToProps, 
-    { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites }
+    { fetchData, fetchDataHomeWorld, fetchDataFilms, addFavorites, removeFavorites, fetchFavorites }
 )(HeroDetails)
 

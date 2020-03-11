@@ -35,7 +35,7 @@ class SignIn extends Component {
                 <input type="password" id='password' onChange={this.handleChange} />
               </div>
 
-              <button className="ui button blue basic" type="submit">Login</button>
+              <button className="ui button violet basic" type="submit">Login</button>
               { authError ? <p className="error-message">{authError}</p> : null }
             </form>
           </div>

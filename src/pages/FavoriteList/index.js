@@ -22,6 +22,7 @@ class FavoritesList extends React.Component {
         currentPage: 0,
         pageCount: 1
       };
+
     componentDidMount() {
         this.props.fetchFavorites()
     }
@@ -60,35 +61,35 @@ class FavoritesList extends React.Component {
    
         return (
             <section className="people-list">
-                <div className="ui container">
-                    <div className="ui grid">
+                <div className="ui aligned stackable grid container">
                         <div className="sixteen wide column">
                             <h1>Favorites List</h1>
                         </div>
-                        <div className="twelve wide column">
-                            <div className="cards-people">
-                                <CardsHero data={displayData} loading={loading} />
-                                {displayData.length > 10 &&
-                                    <ReactPaginate
-                                        previousLabel={<i className='chevron left icon'/>}
-                                        nextLabel={<i className='chevron right icon'/>}
-                                        breakLabel={'...'}
-                                        breakClassName={'break-me'}
-                                        pageCount={pageCount}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={5}
-                                        onPageChange={this.handlePageClick}
-                                        containerClassName={'pagination'}
-                                        activeClassName={'active'}
-                                    />
-                                }
+                        <div className="row row-reverse">
+                             <div className="five wide tablet four wide computer column">
+                                <Search searchData={this.searchData} />
+                            </div>
+                            <div className="eleven wide tablet twelve wide computer column">
+                                <div className="cards-people">
+                                    <CardsHero data={displayData} loading={loading} />
+                                    {displayData.length > 10 &&
+                                        <ReactPaginate
+                                            previousLabel={<i className='chevron left icon'/>}
+                                            nextLabel={<i className='chevron right icon'/>}
+                                            breakLabel={'...'}
+                                            breakClassName={'break-me'}
+                                            pageCount={pageCount}
+                                            marginPagesDisplayed={2}
+                                            pageRangeDisplayed={5}
+                                            onPageChange={this.handlePageClick}
+                                            containerClassName={'pagination'}
+                                            activeClassName={'active'}
+                                        />
+                                    }
+                                </div>
                             </div>
                         </div>
-                        <div className="four wide column">
-                            <Search searchData={this.searchData} />
-                        </div>
                     </div>
-                </div>
             </section>
         )
 }

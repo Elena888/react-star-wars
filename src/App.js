@@ -9,7 +9,7 @@ import HeroDetails from './pages/HeroDetails'
 import SignIn from './pages/Auth/SignIn'
 import SignUp from './pages/Auth/SignUp'
 import history from './history'
-import './App.scss';
+import './styles/main.scss';
 
 const App = ({auth}) => {
 

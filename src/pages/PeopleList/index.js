@@ -15,9 +15,12 @@ class PeopleList extends React.Component{
         this.state = {
             error: false,
             people: [],
-            pageCount: 1
+            pageCount: 1,
+            searchData: null,
+            currentPage: 0,
         } 
     }
+
     componentDidMount(){
         const url = 'https://swapi.co/api/people/';
         this.fetchData(url)
@@ -45,53 +48,70 @@ class PeopleList extends React.Component{
         })
     };
 
-    loadData = page => {
-        const url = `https://swapi.co/api/people/?page=${page.selected + 1}`;
-        this.fetchData(url)
+    loadData = ({selected}) => {
+        const {searchData, currentPage} = this.state;
+        this.setState({ currentPage: selected }, () => {
+            let url = ''
+            if(searchData){
+                url = `https://swapi.co/api/people/?page=${selected + 1}&search=${searchData}`;
+            }else{
+                url = `https://swapi.co/api/people/?page=${selected + 1}`;
+            }
+            this.fetchData(url)
+        })
      };
 
     searchData = data => {
-        const url = `https://swapi.co/api/people/?search=${data}`;
+        const url = `https://swapi.co/api/people/?page=1&search=${data}`;
         this.fetchData(url)
+        this.setState({
+            searchData: data, 
+            currentPage: 0,
+        })
     };
     
     render(){
-        const {people, error} = this.state;
+        const {people, error, searchData} = this.state;
         const {loading} = this.props;
+        console.log('searchData', searchData)
+        console.log('people', this.props.people)
 
         return(
             <section className="people-list">
-                <div className="ui container">
-                    <div className="ui grid">
-                        <div className="sixteen wide column">
-                            <h1>People List</h1>
-                        </div>
-                        {
-                            error ?
-                                <p>Sorry! There was an error loading people</p>
-                            :
-                            <>
-                                <div className="twelve wide column">
-                                    <div className="cards-people">
-                                        <CardsHero data={people} loading={loading} />
-                                        <ReactPaginate
-                                            previousLabel={<i className='chevron left icon'/>}
-                                            nextLabel={<i className='chevron right icon'/>}
-                                            breakLabel={'...'}
-                                            breakClassName={'break-me'}
-                                            pageCount={this.state.pageCount}
-                                            onPageChange={this.loadData}
-                                            containerClassName={'pagination'}
-                                            activeClassName={'active'}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="four wide column">
-                                    <Search searchData={this.searchData} />
-                                </div>
-                            </>
-                        }
+                <div className="ui aligned stackable grid container">
+                    <div className="sixteen wide column">
+                        <h1>People List</h1>
                     </div>
+                    {
+                        error ?
+                            <p>Sorry! There was an error loading people</p>
+                        :
+                        <div className="row row-reverse">
+                             <div className="five wide tablet four wide computer column">
+                                <Search searchData={this.searchData} />
+                            </div>
+                            <div className="eleven wide tablet twelve wide computer column">
+                                <div className="cards-people">
+                                    <CardsHero data={people} loading={loading} />
+                                
+                                    <ReactPaginate
+                                        previousLabel={<i className='chevron left icon'/>}
+                                        nextLabel={<i className='chevron right icon'/>}
+                                        marginPagesDisplayed={1}
+                                        pageRangeDisplayed={2}
+                                        breakLabel={'...'}
+                                        breakClassName={'break-me'}
+                                        pageCount={this.state.pageCount}
+                                        onPageChange={this.loadData}
+                                        containerClassName={'pagination'}
+                                        activeClassName={'active'}
+                                    />
+                                 
+                                </div>
+                            </div>
+                           
+                        </div>
+                    }
                 </div>
             </section>
         )
