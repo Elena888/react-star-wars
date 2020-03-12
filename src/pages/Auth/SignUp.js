@@ -26,30 +26,31 @@ class SignUp extends Component {
         if (auth.uid) return <Redirect to='/' />
         return (
             <div className="section-form">
-                <div className="ui text container">
+                <div className="ui aligned stackable container">
+                    <div className="sixteen wide column">
+                        <form className="ui form" onSubmit={this.handleSubmit}>
+                            <h1>Sign Up</h1>
+                            <div className="field">
+                                <label htmlFor="email">Email</label>
+                                <input type="email" id='email' onChange={this.handleChange} />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" id='password' onChange={this.handleChange} />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="firstName">First Name</label>
+                                <input type="text" id='firstName' onChange={this.handleChange} />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="lastName">Last Name</label>
+                                <input type="text" id='lastName' onChange={this.handleChange} />
+                            </div>
 
-                    <form className="ui form" onSubmit={this.handleSubmit}>
-                        <h1>Sign Up</h1>
-                        <div className="field">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id='email' onChange={this.handleChange} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" id='password' onChange={this.handleChange} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="firstName">First Name</label>
-                            <input type="text" id='firstName' onChange={this.handleChange} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="lastName">Last Name</label>
-                            <input type="text" id='lastName' onChange={this.handleChange} />
-                        </div>
-
-                        <button className="ui button violet basic" type="submit">Sign Up</button>
-                        { authError ? <p className="error-message">{authError}</p> : null }
-                    </form>
+                            <button className="ui button violet basic" type="submit">Sign Up</button>
+                            { authError ? <p className="error-message">{authError}</p> : null }
+                        </form>
+                    </div> 
                 </div>
             </div>
 

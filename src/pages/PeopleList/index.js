@@ -85,7 +85,7 @@ class PeopleList extends React.Component{
         const {people, error, searchData, currentPage, sortType} = this.state;
         const {loading} = this.props;
         const type = sortType === 'asc' ? 'desc' : 'asc'
-        const typeIcon = sortType === 'asc' ? <i className="caret down big icon"/> : <i className="caret up big icon"/>
+        const typeIcon = sortType === 'asc' ? <i className="caret up big icon"/> : <i className="caret down big icon"/>
 
         return(
             <section className="people-list">

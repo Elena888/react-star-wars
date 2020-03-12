@@ -22,8 +22,8 @@ class SignIn extends Component {
     const { authError } = this.props;
     return (
         <div className="section-form">
-          <div className="ui text container">
-
+          <div className="ui aligned stackable container">
+          <div className="sixteen wide column">
             <form className="ui form" onSubmit={this.handleSubmit}>
                 <h1>Sign In</h1>
               <div className="field">
@@ -38,6 +38,7 @@ class SignIn extends Component {
               <button className="ui button violet basic" type="submit">Login</button>
               { authError ? <p className="error-message">{authError}</p> : null }
             </form>
+            </div>
           </div>
         </div>
     )

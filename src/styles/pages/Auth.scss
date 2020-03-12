@@ -1,14 +1,14 @@
 .section-form{
   padding: 100px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   form{
     padding: 50px;
     background: #fff;
     border-radius: 8px;
     max-width: 550px !important;
     margin: 0 auto;
+    @media screen and (max-width: 550px) {
+      padding: 20px;
+    }
   }
   h1{
     text-align: center;
