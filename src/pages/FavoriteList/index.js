@@ -45,7 +45,7 @@ class FavoritesList extends React.Component {
     searchData = (data) => {
         const {favorites} = this.props;
         const dataFind = favorites.data.filter(item => {
-            return item['name'].toLowerCase().includes(data)
+            return item['name'].toLowerCase().includes(data.toLowerCase())
         }); 
         
         this.setState({
