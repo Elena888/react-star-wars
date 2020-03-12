@@ -4,7 +4,6 @@ import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux'
 import reduxThunk from 'redux-thunk'
 import { getFirebase,ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { createFirestoreInstance } from 'redux-firestore';
 import App from './App'
 import reducers from './reducers'
 import firebase from './config/fbConfig'
@@ -22,15 +21,12 @@ const middlewares = [
     )
   );
 
-
-
 ReactDOM.render(
     <Provider store={store}>
         <ReactReduxFirebaseProvider
             firebase={firebase}
             config={firebase}
             dispatch={store.dispatch}
-            createFirestoreInstance={createFirestoreInstance}
         >
             <App/>
         </ReactReduxFirebaseProvider>

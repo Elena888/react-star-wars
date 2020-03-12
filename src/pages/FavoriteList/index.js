@@ -20,7 +20,8 @@ class FavoritesList extends React.Component {
     state = {
         data: [],
         currentPage: 0,
-        pageCount: 1
+        pageCount: 1,
+        searchData: null
       };
 
     componentDidMount() {
@@ -50,15 +51,16 @@ class FavoritesList extends React.Component {
         this.setState({
             data: chunkData(dataFind, 10),
             currentPage: 0,
-            pageCount: Math.ceil(dataFind.length / 10)
+            pageCount: Math.ceil(dataFind.length / 10),
+            searchData: data
         })
     }
     
     render() {
         const {favorites: {loading}} = this.props;
-        const {data, currentPage, pageCount} = this.state;
+        const {data, currentPage, pageCount, searchData} = this.state;
         const displayData = data.length === 0 ? [] : data[currentPage];
-   
+        
         return (
             <section className="people-list">
                 <div className="ui aligned stackable grid container">
@@ -67,12 +69,15 @@ class FavoritesList extends React.Component {
                         </div>
                         <div className="row row-reverse">
                              <div className="five wide tablet four wide computer column">
-                                <Search searchData={this.searchData} />
+                                <aside className="sidebar">
+                                    <Search searchData={this.searchData} />
+                                </aside>
                             </div>
                             <div className="eleven wide tablet twelve wide computer column">
                                 <div className="cards-people">
+                                    {searchData && <h2>Search results of '{searchData}'</h2>}
                                     <CardsHero data={displayData} loading={loading} />
-                                    {displayData.length > 10 &&
+                                    {data.length > 1 &&
                                         <ReactPaginate
                                             previousLabel={<i className='chevron left icon'/>}
                                             nextLabel={<i className='chevron right icon'/>}

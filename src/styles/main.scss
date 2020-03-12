@@ -1,14 +1,2 @@
-.row-reverse{
-  flex-direction: row-reverse !important;
-}
-body{
-  background-color: #000421;
-  background-image: url('../images/bg.png');
-}
-a{
-  color: #707ab7;
-  &:hover,
-  &:focus{
-    color: #5360ad;
-  }
-}
+@import './core/vars';
+@import './core/base';

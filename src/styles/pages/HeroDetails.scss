@@ -1,14 +1,6 @@
+@import '../core/vars';
 .hero-details{
   padding: 100px 0;
-  .ui.grid{
-    background: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    @media screen and (max-width: 770px) {
-      border-radius: 0;
-      padding: 0;
-    }
-  }
 
   .list{
     .item{
@@ -24,7 +16,7 @@
   .tabular.menu{
     .active.item{
       background: #f5f6f7;
-      color: #707ab7;
+      color: $color-link;
     }
 
     button{

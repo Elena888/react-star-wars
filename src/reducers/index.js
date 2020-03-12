@@ -3,7 +3,6 @@ import  data from './dataReducer'
 import authReducer from './authReducer'
 import favoritesReducer from './favoritesReducer'
 import { firebaseReducer } from 'react-redux-firebase'
-//import { firestoreReducer } from 'redux-firestore'
 
 export default combineReducers({
     auth: authReducer,
@@ -12,5 +11,4 @@ export default combineReducers({
     films: data('films'),
     favorites: favoritesReducer,
     firebase: firebaseReducer,
-    //firestore: firestoreReducer
 })

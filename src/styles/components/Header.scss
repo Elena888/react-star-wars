@@ -1,3 +1,5 @@
+@import '../core/vars';
+
 header{
   .ui.inverted.menu {
     background: #1d1d2f;
@@ -26,7 +28,7 @@ header{
       }
       &.active,
       &:hover{
-        color: #ffc500 !important;
+        color: $color-yellow !important;
         background: none !important;
       }
     }

@@ -1,0 +1,53 @@
+body{
+  background-color: #000421;
+  background-image: url('../../images/bg.png');
+}
+
+a{
+  color: #707ab7;
+  &:hover,
+  &:focus{
+    color: #5360ad;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $color-black;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 14px;
+}
+
+h5, h6 {
+  font-size: 12px;
+}
+
+.row-reverse{
+  flex-direction: row-reverse !important;
+}
+
+.ui.grid{
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  @media screen and (max-width: 770px) {
+    border-radius: 0;
+    padding: 0;
+  }
+}

@@ -18,6 +18,7 @@ class PeopleList extends React.Component{
             pageCount: 1,
             searchData: null,
             currentPage: 0,
+            sortType: 'desc'
         } 
     }
 
@@ -49,16 +50,15 @@ class PeopleList extends React.Component{
     };
 
     loadData = ({selected}) => {
-        const {searchData, currentPage} = this.state;
-        this.setState({ currentPage: selected }, () => {
-            let url = ''
-            if(searchData){
-                url = `https://swapi.co/api/people/?page=${selected + 1}&search=${searchData}`;
-            }else{
-                url = `https://swapi.co/api/people/?page=${selected + 1}`;
-            }
-            this.fetchData(url)
-        })
+        const {searchData} = this.state;
+        this.setState({ currentPage: selected })
+        let url = ''
+        if(searchData){
+            url = `https://swapi.co/api/people/?page=${selected + 1}&search=${searchData}`;
+        }else{
+            url = `https://swapi.co/api/people/?page=${selected + 1}`;
+        }
+        this.fetchData(url)
      };
 
     searchData = data => {
@@ -69,12 +69,23 @@ class PeopleList extends React.Component{
             currentPage: 0,
         })
     };
+
+    sortData = sortType => {
+        const obj = [...this.state.people];
+        if(sortType === 'asc'){
+            obj.sort((a, b) => a.name.localeCompare(b.name))
+        }else{
+            obj.sort((a, b) => b.name.localeCompare(a.name))
+        }
+        
+        this.setState({ people: obj, sortType })
+    }
     
     render(){
-        const {people, error, searchData} = this.state;
+        const {people, error, searchData, currentPage, sortType} = this.state;
         const {loading} = this.props;
-        console.log('searchData', searchData)
-        console.log('people', this.props.people)
+        const type = sortType === 'asc' ? 'desc' : 'asc'
+        const typeIcon = sortType === 'asc' ? <i className="caret down big icon"/> : <i className="caret up big icon"/>
 
         return(
             <section className="people-list">
@@ -88,10 +99,23 @@ class PeopleList extends React.Component{
                         :
                         <div className="row row-reverse">
                              <div className="five wide tablet four wide computer column">
-                                <Search searchData={this.searchData} />
+                                 <aside className="sidebar">
+                                    <Search searchData={this.searchData} />
+                                    <div className="ui small message">
+                                        Sort by name 
+                                        <button 
+                                            className="sort-button"
+                                            onClick={() => this.sortData(type)}
+                                        >
+                                            {typeIcon}
+                                        </button>
+                                    </div>
+                                 </aside>
+                                
                             </div>
                             <div className="eleven wide tablet twelve wide computer column">
                                 <div className="cards-people">
+                                    {searchData && <h2>Search results of '{searchData}'</h2>}
                                     <CardsHero data={people} loading={loading} />
                                 
                                     <ReactPaginate
@@ -103,13 +127,12 @@ class PeopleList extends React.Component{
                                         breakClassName={'break-me'}
                                         pageCount={this.state.pageCount}
                                         onPageChange={this.loadData}
+                                        forcePage={currentPage}
                                         containerClassName={'pagination'}
                                         activeClassName={'active'}
                                     />
-                                 
                                 </div>
                             </div>
-                           
                         </div>
                     }
                 </div>
