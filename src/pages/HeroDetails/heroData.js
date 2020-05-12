@@ -12,14 +12,16 @@ const HeroData = ({heroData, renderButton, loading}) => {
                     <div className="ui middle aligned selection list">
                     {
                         heroData.map((item, index) => {
+                          const {name, value, icon} = item;
                           if(index === 0){
-                            return <h1 key={item.name}>{item.value}</h1>
+                            return <h1 key={name}>{value}</h1>
                         }else{
+                          const itemValue = value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : ''
                             return (
-                              <div className="item" key={item.name}>
-                                <i className={`${item.icon} icon large middle aligned`} />
+                              <div className="item" key={name}>
+                                <i className={`${icon} icon large middle aligned`} />
                                 <div className="content">
-                                    <p>{`${item.value} ${item.name}`}</p>
+                                    <p>{`${itemValue} ${name}`}</p>
                                 </div>
                               </div>
                             )

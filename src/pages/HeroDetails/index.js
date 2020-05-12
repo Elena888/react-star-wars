@@ -7,19 +7,22 @@ import HeroData from './heroData';
 import HeroTabs from './heroTabs';
 import '../../styles/pages/HeroDetails.scss'
 
+const API_URL = 'https://swapi.dev/api/people'
+
 class HeroDetails extends React.Component {
 
     componentDidMount(){
+        const {fetchData, fetchDataHomeWorld, fetchDataFilms, fetchFavorites, auth} = this.props;
         const id = this.props.match.params.id;
-        const url = `https://swapi.co/api/people/${id}`;
-        this.props.fetchData(url)
+        const url = `${API_URL}/${id}`;
+        fetchData(url)
             .then(res => {
-                this.props.fetchDataHomeWorld(res.homeworld)
-                this.props.fetchDataFilms(res.films)
+                fetchDataHomeWorld(res.homeworld)
+                fetchDataFilms(res.films)
                 return res
             })
-            if(this.props.auth.uid) {
-                this.props.fetchFavorites();
+            if(auth.uid) {
+                fetchFavorites();
             }
     }
 

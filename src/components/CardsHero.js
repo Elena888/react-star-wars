@@ -12,7 +12,15 @@ const CardsHero = ({data, loading}) => {
             :
                 content =
                     data.length > 0 && data.map(item => {
-                        const icon = item.gender === 'female' ? 'female' : item.gender === 'male' ? 'male' : 'user secret'
+                        let icon = '';
+                        if(item.gender === 'female'){
+                            icon = 'female'
+                        }else if(item.gender === 'male'){
+                            icon = 'male'
+                        }else{
+                            icon = 'user secret'
+                        }
+                        
                         return (
                             <div className="card" key={item.id}>
                                 <Link to={`hero/${item.id}`}>

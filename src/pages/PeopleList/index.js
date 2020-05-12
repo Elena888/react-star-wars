@@ -7,7 +7,11 @@ import { fetchData } from "../../actions";
 
 import Search from '../../components/Search'
 import CardsHero from '../../components/CardsHero'
-import '../../styles/pages/listData.scss'
+import '../../styles/pages/listData.scss';
+
+const API_URL = 'https://swapi.dev/api/people';
+const SORT_ASC = 'asc';
+const SORT_DESC = 'desc';
 
 class PeopleList extends React.Component{
     constructor(props) {
@@ -23,12 +27,12 @@ class PeopleList extends React.Component{
     }
 
     componentDidMount(){
-        const url = 'https://swapi.co/api/people/';
-        this.fetchData(url)
+        this.fetchData(API_URL)
     }
 
     fetchData = url => {
-        this.props.fetchData(url)
+        const {fetchData} = this.props;
+        fetchData(url)
         .then(res => {
             const data = []
             res.results.map(item => {
@@ -54,15 +58,15 @@ class PeopleList extends React.Component{
         this.setState({ currentPage: selected })
         let url = ''
         if(searchData){
-            url = `https://swapi.co/api/people/?page=${selected + 1}&search=${searchData}`;
+            url = `${API_URL}/?page=${selected + 1}&search=${searchData}`;
         }else{
-            url = `https://swapi.co/api/people/?page=${selected + 1}`;
+            url = `${API_URL}/?page=${selected + 1}`;
         }
         this.fetchData(url)
      };
 
     searchData = data => {
-        const url = `https://swapi.co/api/people/?page=1&search=${data}`;
+        const url = `${API_URL}/?page=1&search=${data}`;
         this.fetchData(url)
         this.setState({
             searchData: data, 
@@ -72,7 +76,7 @@ class PeopleList extends React.Component{
 
     sortData = sortType => {
         const obj = [...this.state.people];
-        if(sortType === 'asc'){
+        if(sortType === SORT_ASC){
             obj.sort((a, b) => a.name.localeCompare(b.name))
         }else{
             obj.sort((a, b) => b.name.localeCompare(a.name))
@@ -84,8 +88,8 @@ class PeopleList extends React.Component{
     render(){
         const {people, error, searchData, currentPage, sortType} = this.state;
         const {loading} = this.props;
-        const type = sortType === 'asc' ? 'desc' : 'asc'
-        const typeIcon = sortType === 'asc' ? <i className="caret up big icon"/> : <i className="caret down big icon"/>
+        const type = sortType === SORT_ASC ? SORT_DESC : SORT_ASC;
+        const typeIcon = sortType === SORT_ASC ? <i className="caret up big icon"/> : <i className="caret down big icon"/>
 
         return(
             <section className="people-list">
